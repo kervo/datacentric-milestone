@@ -1,1 +1,1 @@
-web: python3 app:app
+web:node index.js
