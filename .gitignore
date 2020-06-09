@@ -1,3 +1,6 @@
+# MongoDB connection
+env.py
+
 # MAC
 .DS_Store
 
