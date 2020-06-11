@@ -1,6 +1,6 @@
-from wtforms import SubmitField, BooleanField, StringField, PasswordField,\
-    validators
+from wtforms import SubmitField, BooleanField, StringField, PasswordField, validators
 from flask_wtf import Form
+
 
 class signUpForm(Form):
     name_first = StringField('User Name', [validators.DataRequired()])
