@@ -28,11 +28,11 @@ def dashboard():
 
 
 @app.route('/signup', methods=['GET', 'POST'])
-def signup():
+def registration():
     form = signUpForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        return 'We confirm your registration!'
-    return render_template("signup.html", form=form)
+        return 'Your registration is complete!'
+    return render_template('signup.html', form=form)
 
 
 @app.route('/contact')
