@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-# Mongodb
-=======
-# MongoDB connection
->>>>>>> 4a31cdf006aad41ca07a4e3b63b99848bf29adea
+# Mongodb and frontend interface
 env.py
+.theia
+
 
 # MAC
 .DS_Store
