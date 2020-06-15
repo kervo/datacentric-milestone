@@ -8,10 +8,11 @@ from forms import *
 from flask.helpers import flash
 from virtualenv import session
 
+'''
 # Variables for database
 mongo = PyMongo(app)
 users_files = mongo.db.usersfiles
-
+'''
 app = Flask(__name__)
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
@@ -21,7 +22,11 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login for {},'.format(form.username.data))
+        return redirect('/dashboard')
+    return render_template("login.html", form=form)
 
 @app.route('/dashboard')
 def dashboard():
@@ -29,6 +34,7 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
+    '''''
     if 'username' in session:
         flash('This user is already registered')
         return redirect(url_for('/'))
@@ -53,8 +59,9 @@ def signup():
             session["username"] = request.form['username']
             flash("You are ready to use wondercook")
             return redirect(url_for('dashboard'))
+            
     return render_template('signup.html', form=form, title='Sign Up')
-    
+'''''
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
