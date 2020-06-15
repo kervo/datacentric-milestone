@@ -1,19 +1,23 @@
 import os
-import pymongo
-from flask import Flask, redirect, url_for, render_template, request
-from register import signUpForm
+from flask import Flask, app, redirect, render_template, request, url_for
+from register import signUpForm, RegistrationForm
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf.form import FlaskForm
+from flask_pymongo import PyMongo
+from forms import *
+from flask.helpers import flash
+from virtualenv import session
 
-from os import path
-if path.exists("env.py"):
-    import env
+# Variables for database
+mongo = PyMongo(app)
+users_files = mongo.db.usersfiles
 
 app = Flask(__name__)
-app.config.from_mapping(
-    SECRET_KEY=b'\xd6\x04\xbdj\xfe\xed$c\x1e@\xad\x0f\x13,@G')
+app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", title='Wondercook')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,11 +29,32 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
-    form = signUpForm(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
-        return 'We confirm your registration!'
-    return render_template("signup.html", form=form)
+    if 'username' in session:
+        flash('This user is already registered')
+        return redirect(url_for('/'))
+    
+    form = SignUp()
+    if form.validate_on_submit():
+        users = users_files
+        registered_user = users_files.find_one({'username': request.form['username']})
 
+        if registered_user:
+            flash("This user name already exists")
+            return redirect(url_for('signup'))
+        
+        else:
+            encrypted_password = generate_password_hash(request.form['password'])
+            new_user = {
+                "username": request.form['username'],
+                "password": encrypted_password,
+                "recipes": [],
+            }
+            users.insert_one(new_user)
+            session["username"] = request.form['username']
+            flash("You are ready to use wondercook")
+            return redirect(url_for('dashboard'))
+    return render_template('signup.html', form=form, title='Sign Up')
+    
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
