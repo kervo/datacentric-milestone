@@ -8,25 +8,26 @@ from forms import *
 from flask.helpers import flash
 from virtualenv import session
 
+from os import path
+if path.exists("env.py"):
+    import env
 
-# Variables for database
-mongo = PyMongo(app)
-users_files = mongo.db.usersfiles
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+# Variables for database
+mongo = PyMongo(app)
+users_files = mongo.db.usersfiles
 
 @app.route('/')
 def index():
     return render_template("index.html", title='Wondercook')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login')
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login for {},'.format(form.username.data))
-        return redirect('/dashboard')
-    return render_template("login.html", form=form)
+    return render_template("login.html", title='Log In')
 
 @app.route('/dashboard')
 def dashboard():
@@ -34,10 +35,10 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
-   if 'username' in session:
+   if users_files in session:
         flash('This user is already registered')
         return redirect(url_for('/'))
-        form = SignUp()
+        form = signUpForm()
         if form.validate_on_submit():
             users = users_files
             registered_user = users_files.find_one({'username': request.form['username']})
@@ -57,6 +58,7 @@ def signup():
             session["username"] = request.form['username']
             flash("You are ready to use wondercook")
             return redirect(url_for('dashboard'))
+        
         return render_template('signup.html', form=form, title='Sign Up')
 
 

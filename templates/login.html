@@ -1,32 +1,32 @@
-{% block content %}
-<!-- Modal -->
-<div class="modal fade" id="loginwindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+{% extends 'base.html' %} {% block content %}
+
+<!-- Signup Section -->
+<section id="signup" class="signup-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-lg-8 mx-auto text-center">
+
+				<i class="far fa-user fa-2x mb-2 text-white"></i>
+				<h2 class="text-white mb-5">Log In</h2>
+
+				<form action="/action_page.php">
+					<div class="form-group">
+						<label for="email" class="text-white">Email address:</label>
+						<input type="email" class="form-control" id="email">
             </div>
-            <div class="modal-body">
-           <form action="" method="POST" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ form.submit() }}</button>
-      </form>
+			<div class="form-group">
+							<label for="pwd" class="text-white">Password:</label>
+							<input type="password" class="form-control" id="pwd">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Log In</button>
-            </div>
-        </div>
-    </div>
-</div>
+			<div class="checkbox">
+    <label class="text-white"><input type="checkbox"> Remember me</label>
+  </div>
+							<button class="btn btn-primary my-2 my-sm-0" type="submit">Log In</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</section>
+
 {% endblock %}

@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}" class="btn btn-secondary" data-toggle="modal" data-target="#loginwindow">Log In</a>
+                        <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
                         <!----<a class="nav-link" href="{{ url_for('login') }}">Log In</a>---->
                     </li>
                     <li class="nav-item">
@@ -51,26 +51,7 @@
             </div>
         </div>
     </nav>
-    <!-- Modal -->
-    <div class="modal fade" id="loginwindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary my-2 my-sm-0">Log In</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Main Content -->
+<!-- Main Content -->
 
     {% block content %} {% endblock %}
 
