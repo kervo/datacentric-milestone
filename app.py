@@ -35,6 +35,8 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
+    return render_template('signup.html', title='Sign Up')
+    '''
    if users_files in session:
         flash('This user is already registered')
         return redirect(url_for('/'))
@@ -58,8 +60,8 @@ def signup():
             session["username"] = request.form['username']
             flash("You are ready to use wondercook")
             return redirect(url_for('dashboard'))
+        '''
         
-        return render_template('signup.html', form=form, title='Sign Up')
 
 
 @app.route('/contact')

@@ -1,31 +1,35 @@
 {% extends 'base.html' %} {% block content %}
-<!-- Signup Section -->
-<section id="signup" class="signup-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-lg-8 mx-auto text-center">
-                <h2 class="text-white mb-5">Create your account</h2>
-                <form action="" method="post" class="form-inline d-flex" role="form">
-                    <div class="row">
-      <div class="form-group col-md-6">
-        {{ wtf.form_field(form.name_first, class='form-control', placeholder='First name') }}
-      </div>
-    </div>
+<section id="login" class="signup-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-lg-8 mx-auto text-center">
 
-    <div class="form-group">
-      {{ wtf.form_field(form.email, type='email', class='form-control', placeholder='Email Address') }}
-    </div>
+				<i class="fas fa-pizza-slice fa-2x mb-2 text-white"></i>
+				<h2 class="text-white mb-5">Sign Up</h2>
+                <br>
+                <h3>Already a member? <a href="{{ url_for('login') }}">Log In</a></h3>
 
-    <div class="form-group">
-      {{ wtf.form_field(form.password, type='password', class='form-control', placeholder='Password') }}
-      {{ wtf.form_field(form.confirm, type='password', class='form-control', placeholder='Confirm Password') }}
-    </div>
+				<form action="/action_page.php">
+					<div class="form-group">
+						<label for="username">Cook your user name:</label>
+						<input type="text" class="form-control" id="username">
+  </div>
+  <div class="form-group">
+						<label for="email">Add in your email address:</label>
+						<input type="email" class="form-control" id="email">
+  </div>
+						<div class="form-group">
+							<label for="pwd">Spice a password:</label>
+							<input type="password" class="form-control" id="pwd">
+  </div>
+							<div class="checkbox">
+								<label><input type="checkbox"> Remember me</label>
+							</div>
+							<button class="btn btn-primary my-2 my-sm-0" type="submit">Sign Up</button>
+				</form>
 
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>
 {% endblock %}
