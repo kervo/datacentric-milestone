@@ -13,6 +13,8 @@ Making sure that my flask enviroment is running by `flask run` on the command li
 
 # References
 
+* Photos by Ella Olsson, Abhinav Goswami from Pexels
+
 * CLI cheatsheet for commands: https://github.com/0nn0/terminal-mac-cheatsheet
 
 * How to work with Virtual Environments: https://docs.python.org/3/tutorial/venv.html
