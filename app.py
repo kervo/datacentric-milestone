@@ -1,6 +1,5 @@
 import os
 from flask import Flask, app, redirect, render_template, request, url_for
-from register import signUpForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.form import FlaskForm
 from flask_pymongo import PyMongo
@@ -23,7 +22,7 @@ users_files = mongo.db.usersfiles
 
 @app.route('/')
 def index():
-    return render_template("index.html", title='Wondercook')
+    return render_template("index.html", title='WonderCook')
 
 @app.route('/login')
 def login():
