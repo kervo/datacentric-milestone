@@ -35,7 +35,15 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
-    return render_template('signup.html', title='Sign Up')
+    form = RegistrationForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User(form.username.data, form.email.data,
+                    form.password.data)
+        db_session.add(user)
+        flash('Thanks for registering')
+        return redirect(url_for('login'))
+    return render_template('signup.html', title='Sign Up', form=form)
+
     '''
    if users_files in session:
         flash('This user is already registered')
