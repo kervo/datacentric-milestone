@@ -7,18 +7,7 @@ from forms import *
 from flask.helpers import flash
 from virtualenv import session
 
-from os import path
-if path.exists("env.py"):
-    import env
-
-
 app = Flask(__name__)
-app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-# Variables for database
-mongo = PyMongo(app)
-users_files = mongo.db.usersfiles
 
 @app.route('/')
 def index():

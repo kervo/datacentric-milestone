@@ -7,16 +7,14 @@ if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
-app.config['MONGODB_NAME'] = "usersfiles"
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+# Variables for database
 mongo = PyMongo(app)
+users_files = mongo.db.usersfiles
 
-# MONGODB_URI = os.getenv("MONGO_URI")
-
-DBS_NAME = "usersfiles"
-COLLECTION_NAME = "firstuser"
+COLLECTION_NAME = "recipes"
 
 users = [DBS_NAME]
 recipes = [COLLECTION_NAME]
