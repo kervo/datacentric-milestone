@@ -1,6 +1,6 @@
-# Mongodb and frontend interface
-env.py
+# Mongodb and GitPod
 .theia
+.gitpod.yml
 
 
 # MAC
@@ -121,6 +121,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+env.py
 
 # Spyder project settings
 .spyderproject
