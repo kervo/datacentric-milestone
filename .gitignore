@@ -1,6 +1,7 @@
 # Mongodb and GitPod
 .theia
 .gitpod.yml
+.gitpod.Dockerfile
 
 
 # MAC
