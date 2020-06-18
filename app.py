@@ -28,7 +28,7 @@ meal = mongo.db.dish_type
 
 @app.route('/')
 def index():
-    return render_template("index.html", title='Wondercook')
+    return render_template("index.html", title='WonderCook')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,14 +58,7 @@ def dashboard():
 
 @app.route('/signup')
 def signup():
-    form = RegistrationForm(request.form)
-    if request.method == 'POST' and form.validate():
-        user = User(form.username.data, form.email.data,
-                    form.password.data)
-        db_session.add(user)
-        flash('Thanks for registering')
-        return redirect(url_for('login'))
-    return render_template('signup.html', title='Sign Up', form=form)
+    return render_template('signup.html', title='Sign Up')
 
     '''
    if users_files in session:
