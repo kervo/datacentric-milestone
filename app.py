@@ -3,6 +3,7 @@ import math
 from flask import Flask, app, redirect, render_template, request, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.form import FlaskForm
+import pymongo
 from flask_pymongo import PyMongo
 from forms import *
 from bson.objectid import ObjectId
@@ -17,19 +18,45 @@ if path.exists("env.py"):
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI", 'mongodb://localhost')
 app.config['SECRET_KEY'] = os.urandom(32)
-# Variables for database
 mongo = PyMongo(app)
+
+MONGO_URI = os.getenv("MONGO_URI")
+
+def mongo_connect(url):
+    try:
+        conn = pymongo.MongoClient(url)
+        print("Mongo is connected!")
+        return conn
+    except pymongo.errors.ConnectionFailure as e:
+        print("Could not connect to MongoDB: %s") % e
+def mongo_connect(url):
+    try:
+        conn = pymongo.MongoClient(url)
+        print("Mongo is connected!")
+        return conn
+    except pymongo.errors.ConnectionFailure as e:
+        print("Could not connect to MongoDB: %s") % e
+        
+conn = mongo_connect(MONGO_URI)
+DBS_NAME = "usersfiles"
+COLLECTION_NAME = "dish_type"
+coll = conn[DBS_NAME][COLLECTION_NAME]
+# MongoDB variables
 users_files = mongo.db.usersfiles
 
-'''MongoDB Variables'''
 user = mongo.db.user
 recipe = mongo.db.recipe
 meal = mongo.db.dish_type
 
 
+
+
 @app.route('/')
 def index():
-    return render_template("index.html", title='WonderCook')
+    documents = coll.find()
+    for doc in documents:
+        print(doc)
+    return render_template("index.html", doc=doc, title='WonderCook')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

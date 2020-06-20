@@ -1,30 +1,40 @@
 import os
+import pymongo
 from flask import Flask
-from flask_pymongo import PyMongo
-from flask_login import LoginManager
 
-if os.path.exists("env.py"):
+from os import path
+if path.exists("env.py"):
     import env
 
-app = Flask(__name__)
-app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-# Variables for database
-mongo = PyMongo(app)
-users_files = mongo.db.usersfiles
-
-def mongo_connect(url):
-    try:
-        conn = PyMongo.MongoClient(url)
-        return conn
-    except PyMongo.errors.ConnectionFailure as e:
-        print("Could not connect to MongoDB: %s") % e
+MONGODB_URI = os.getenv("MONGO_URI")
+DBS_NAME = "usersfiles"
+COLLECTION_NAME1 = "dish_type"
+COLLECTION_NAME2 = "recipes"
+COLLECTION_NAME3 = "users"
 
 
 def mongo_connect(url):
     try:
-        conn = PyMongo.MongoClient(url)
+        conn = pymongo.MongoClient(url)
+        print("Mongo is connected!")
         return conn
-    except PyMongo.errors.ConnectionFailure as e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
+def mongo_connect(url):
+    try:
+        conn = pymongo.MongoClient(url)
+        print("Mongo is connected!")
+        return conn
+    except pymongo.errors.ConnectionFailure as e:
+        print("Could not connect to MongoDB: %s") % e
+        
+conn = mongo_connect(MONGODB_URI)
+
+coll = conn[DBS_NAME][COLLECTION_NAME1][COLLECTION_NAME2][COLLECTION_NAME3]
+
+documents = coll.find()
+
+for doc in documents:
+    print(doc)
+
+from app import *
