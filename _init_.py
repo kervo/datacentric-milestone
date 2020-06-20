@@ -14,12 +14,6 @@ app.config['SECRET_KEY'] = SECRET_KEY
 mongo = PyMongo(app)
 users_files = mongo.db.usersfiles
 
-COLLECTION_NAME = "recipes"
-
-users = [DBS_NAME]
-recipes = [COLLECTION_NAME]
-
-
 def mongo_connect(url):
     try:
         conn = PyMongo.MongoClient(url)

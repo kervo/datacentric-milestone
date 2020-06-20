@@ -216,7 +216,11 @@
     background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 75%, #161616 100%), url("../img/demo-image-01.jpg");
 }
 
-.signup-section .login-section {
+.dashboard-section {
+    background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 75%, #161616 100%), url("../img/bg-dashboard.jpg");
+}
+
+.signup-section .login-section .dashboard-section {
     padding: 10rem 0;
     background-position: center;
     background-repeat: no-repeat;

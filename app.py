@@ -1,4 +1,5 @@
 import os
+import math
 from flask import Flask, app, redirect, render_template, request, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.form import FlaskForm
@@ -46,15 +47,37 @@ def login():
             else:
                 flash('Wrong details, please try again')
                 return redirect(url_for('login'))
-        
         else:
             flash('This user does not exist, type your details again')
-            return redirect(url_for('login'))
+            return redirect(url_for('dashboard'))
     return render_template("login.html", form=form, title='Log In')
-
+    
 @app.route('/dashboard')
 def dashboard():
     return render_template("dashboard.html")
+'''@app.route('/dashboard/<username>/page:<num>') 
+def dashboard(username):
+    if username is not None:
+        my_recipes = recipe.find({
+            'recipe_author_name': {'$regex': username, '$options': 'i'}
+        })
+        total_my_recipes = my_recipes.count()
+        
+    total_pages = range(1, math.ceil(total_my_recipes/8) + 1)
+    skip_num = 8 * (int(num) - 1)
+    recipes_per_page = my_recipes.skip(skip_num).limit(8).sort([("upvotes", -1)])
+    
+    if total_my_recipes <= 8:
+        page_count = total_my_recipes
+    elif (skip_num + 8) <= total_my_recipes:
+        page_count = skip_num + 8
+    else:
+        page_count = total_my_recipes 
+    return render_template("dashboard.html", recipes=recipe.find(), dishes=meal.find(), my_recipes=my_recipes, 
+                    users=user.find(), total_pages=total_pages, num=num, skip_num=skip_num, 
+                    page_count=page_count, total_my_recipes=total_my_recipes,
+                    recipes_per_page=recipes_per_page, title='My WonderCook')
+''' 
 
 @app.route('/signup')
 def signup():
@@ -85,7 +108,9 @@ def signup():
             flash("You are ready to use wondercook")
             return redirect(url_for('dashboard'))
         '''
-        
+@app.route('/add_recipe')
+def add_recipe():
+    return render_template("add_recipe.html")        
 
 
 @app.route('/contact')
