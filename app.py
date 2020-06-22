@@ -26,6 +26,7 @@ from os import path
 if path.exists("env.py"):
     import env
 
+''' Connection with MongoDB'''
 MONGODB_URI = os.getenv("MONGO_URI")
 DBS_NAME = "usersfiles"
 COLLECTION_NAME1 = "dish_type"
@@ -44,12 +45,12 @@ def mongo_connect(url):
 conn = mongo_connect(MONGODB_URI)
 meal = conn[DBS_NAME][COLLECTION_NAME1]
 recipe = conn[DBS_NAME][COLLECTION_NAME2]
-users = conn[DBS_NAME][COLLECTION_NAME3]
+user = conn[DBS_NAME][COLLECTION_NAME3]
 
 @app.route('/')
 def index():
-    documents = meal.find()
-    for doc in documents:
+    recipes = recipe.find({}, {"_id":0})
+    for doc in recipes:
         print(doc)
     return render_template("index.html", doc=doc, title='WonderCook')
 
@@ -76,7 +77,12 @@ def login():
     
 @app.route('/dashboard')
 def dashboard():
-    return render_template("dashboard.html")
+    form = Add_RecipeForm()
+    
+    recipes = recipe.find({}, {"_id":0})
+    for doc in recipes:
+        return render_template("dashboard.html", doc=doc, title='Dashboard')
+
 '''@app.route('/dashboard/<username>/page:<num>') 
 def dashboard(username):
     if username is not None:
