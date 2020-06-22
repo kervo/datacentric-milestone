@@ -1,59 +1,54 @@
 import os
 import math
+import json
 from flask import Flask, app, redirect, render_template, request, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.form import FlaskForm
 import pymongo
 from flask_pymongo import PyMongo
-from forms import *
 from bson.objectid import ObjectId
-
+from forms import *
+from flask.helpers import flash
+from pymongo.mongo_client import MongoClient
 
 from os import path
-from flask.helpers import flash
 if path.exists("env.py"):
     import env
 
 
 app = Flask(__name__)
+app.config["MONGO_DBNAME"] = 'usersfiles'
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI", 'mongodb://localhost')
-app.config['SECRET_KEY'] = os.urandom(32)
+app.config['SECRET_KEY'] = os.urandom(24) 
 mongo = PyMongo(app)
 
-MONGO_URI = os.getenv("MONGO_URI")
+from os import path
+if path.exists("env.py"):
+    import env
 
-def mongo_connect(url):
-    try:
-        conn = pymongo.MongoClient(url)
-        print("Mongo is connected!")
-        return conn
-    except pymongo.errors.ConnectionFailure as e:
-        print("Could not connect to MongoDB: %s") % e
-def mongo_connect(url):
-    try:
-        conn = pymongo.MongoClient(url)
-        print("Mongo is connected!")
-        return conn
-    except pymongo.errors.ConnectionFailure as e:
-        print("Could not connect to MongoDB: %s") % e
-        
-conn = mongo_connect(MONGO_URI)
+MONGODB_URI = os.getenv("MONGO_URI")
 DBS_NAME = "usersfiles"
-COLLECTION_NAME = "dish_type"
-coll = conn[DBS_NAME][COLLECTION_NAME]
-# MongoDB variables
-users_files = mongo.db.usersfiles
+COLLECTION_NAME1 = "dish_type"
+COLLECTION_NAME2 = "recipes"
+COLLECTION_NAME3 = "users"
 
-user = mongo.db.user
-recipe = mongo.db.recipe
-meal = mongo.db.dish_type
+def mongo_connect(url):
+    try:
+        conn = pymongo.MongoClient(url)
+        print("Mongo is connected!")
+        return conn
+    except pymongo.errors.ConnectionFailure as e:
+        print("Could not connect to MongoDB: %s") % e
 
-
-
+# MongoDB Variables        
+conn = mongo_connect(MONGODB_URI)
+meal = conn[DBS_NAME][COLLECTION_NAME1]
+recipe = conn[DBS_NAME][COLLECTION_NAME2]
+users = conn[DBS_NAME][COLLECTION_NAME3]
 
 @app.route('/')
 def index():
-    documents = coll.find()
+    documents = meal.find()
     for doc in documents:
         print(doc)
     return render_template("index.html", doc=doc, title='WonderCook')
