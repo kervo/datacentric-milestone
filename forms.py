@@ -22,5 +22,5 @@ class Add_RecipeForm(FlaskForm):
     recipe_name = StringField('Recipe Name', validators=[DataRequired()])
     ingredients = StringField('List of ingredients', validators=[DataRequired()])
     preparation = TextAreaField('Ingredients', validators=[DataRequired()])
-    Country = StringField('Country')
+    country = StringField('Country')
     submit = SubmitField('New Recipe')
