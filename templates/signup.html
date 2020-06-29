@@ -10,8 +10,8 @@
                 <h3>Already a member? <a href="{{ url_for('login') }}" class="btn btn-primary my-2 my-sm-0">Log In</a>
 				<form action="/action_page.php">
 					<div class="form-group">
-						<label for="username">User name:</label>
-						<input type="text" class="form-control" id="username" placeholder="Cook your user name">
+						
+						<input type="text" class="form-control" id="username" value="username" placeholder="Cook your user name">
   </div>
   <div class="form-group">
 						<label for="email">Email address:</label>
@@ -24,7 +24,7 @@
 							<div class="checkbox">
 								<label><input type="checkbox"> Remember me</label>
 							</div>
-							<button class="btn btn-primary my-2 my-sm-0" type="submit">Sign Up</button>
+							<a href="{{ url_for('dashboard') }}" class="btn btn-primary my-2 my-sm-0">Log In</a>
 				</form>
 			</div>
 		</div>

@@ -1,6 +1,4 @@
-import os
-import math
-import json
+import os, math, random, json
 from flask import Flask, app, redirect, render_template, request, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.form import FlaskForm
@@ -22,9 +20,6 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI", 'mongodb://localhost')
 app.config['SECRET_KEY'] = os.urandom(24) 
 mongo = PyMongo(app)
 
-from os import path
-if path.exists("env.py"):
-    import env
 
 ''' Connection with MongoDB'''
 MONGODB_URI = os.getenv("MONGO_URI")
@@ -50,6 +45,7 @@ user = conn[DBS_NAME][COLLECTION_NAME3]
 @app.route('/')
 def index():
     recipes = recipe.find({}, {"_id":0})
+    
     for doc in recipes:
         print(doc)
     return render_template("index.html", doc=doc, title='WonderCook')
@@ -136,6 +132,21 @@ def signup():
             flash("You are ready to use wondercook")
             return redirect(url_for('dashboard'))
         '''
+@app.route('/mysearch', methods=['GET','POST'])
+def lists():
+    if request.method == 'POST':
+        my_search = request.form['mysearch']
+        search_recipes = recipe
+        check_db = search_recipes.find()
+
+        for record in check_db:
+            if (record['recipe_name':1]):
+                return 'recipe found'
+            else:
+                return 'sorry recipe not found'
+    return render_template("dashboard.html", record=record)
+
+
 @app.route('/add_recipe')
 def add_recipe():
     return render_template("add_recipe.html")        

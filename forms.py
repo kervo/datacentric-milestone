@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, TextAreaField, StringField, SubmitField, validators
+from wtforms import BooleanField, PasswordField, TextAreaField, StringField, SubmitField, validators, IntegerField
 from wtforms.validators import DataRequired, EqualTo, Length
 
 class RegistrationForm(FlaskForm):
@@ -23,4 +23,32 @@ class Add_RecipeForm(FlaskForm):
     ingredients = StringField('List of ingredients', validators=[DataRequired()])
     preparation = TextAreaField('Ingredients', validators=[DataRequired()])
     country = StringField('Country')
+    allergens = IntegerField('Allergens')
     submit = SubmitField('New Recipe')
+
+class DeleteRecipe(FlaskForm):
+    key = StringField('Name')
+    title = StringField('Recipe Title')
+    delete = SubmitField('Delete')
+
+'''   '''
+
+
+class CreateTask(FlaskForm):
+    title = TextAreaField('Task Title')
+    shortdesc = TextAreaField('Short Description')
+    priority = IntegerField('Priority')
+    create = SubmitField('Create')
+
+class DeleteTask(FlaskForm):
+    key = TextAreaField('Task ID')
+    title = TextAreaField('Task Title')
+    delete = SubmitField('Delete')
+
+class UpdateTask(FlaskForm):
+    key = TextAreaField('Task Key')
+    shortdesc = TextAreaField('Short Description')
+    update = SubmitField('Update')
+
+class ResetTask(FlaskForm):
+    reset = SubmitField('Reset')
