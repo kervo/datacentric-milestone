@@ -111,7 +111,7 @@ def signup():
    if users_files in session:
         flash('This user is already registered')
         return redirect(url_for('/'))
-        form = signUpForm()
+        form = RegistrationForm()
         if form.validate_on_submit():
             users = users_files
             registered_user = users_files.find_one({'username': request.form['username']})
