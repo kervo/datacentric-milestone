@@ -28,22 +28,23 @@ Perhaps users can upload videos when all the site is working.
 
 # Software Development Practices:
 
-Structure
-
+* The Structure
 Index
-	|—Log in
-		    ---| <user> <session>
-	|—Sign up
-		|——-Dashboard
-			|—Search recipes <recipe>
-			|—Add Recipe
-			|—Edit a recipe
-			|—Delete a recipe
-			|—Log out <session>
+```
+|—Log in
+---| <user> <session>
+|—Sign up
+  |——-Dashboard
+  |—Search recipes <recipe>
+  |—Add Recipe
+  |—Edit a recipe
+  |—Delete a recipe
+  |—Log out <session>
 
-	|—Index with random recipes <random>
+|—Index with random recipes <random>
+```
 
-### Technologies used:
+### Technologies used
 HTML, CSS, Javascript as part of the templates.
 Python3, Flask and MongoDB for the back-end.
 Heroku as deployment platform (not achieved on my first and simple attempt)
