@@ -157,9 +157,5 @@ def contact():
     return render_template("contact.html")
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     app.run(host='0.0.0.0',
             port=int(os.environ.get('PORT')),)
-=======
-    app.run(host= '0.0.0.0')
->>>>>>> refs/remotes/origin/master
