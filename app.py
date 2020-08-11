@@ -16,7 +16,7 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'usersfiles'
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI", 'mongodb://localhost')
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config['SECRET_KEY'] = os.urandom(24) 
 mongo = PyMongo(app)
 
@@ -157,5 +157,9 @@ def contact():
     return render_template("contact.html")
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(host='0.0.0.0',
             port=int(os.environ.get('PORT')),)
+=======
+    app.run(host= '0.0.0.0')
+>>>>>>> refs/remotes/origin/master
